@@ -40,4 +40,12 @@ jobs:
           files: ./bin/hello-from-mondoo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dispatch Docker Build Trigger
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.PAT }}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            https://api.github.com/repos/haydn-j-evans/hello-mondo-deployment/dispatches \
+            -d '{"event_type": "release", "client_payload": {"tag_version": "${{ github.ref }}"} }'
     
