@@ -33,15 +33,11 @@ jobs:
       - name: Build Application
         run: go build -o ./bin/hello-from-mondoo ./...
 
-      - name: release
-        uses: actions/create-release@v1
+      - name: Create Release
         id: create_release
+        uses: softprops/action-gh-release@v1
         with:
-          draft: false
-          prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
-          body_path: ./bin/hello-from-mondoo
+          files: ./bin/hello-from-mondoo
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
