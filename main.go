@@ -16,7 +16,10 @@ func main() {
 	log := &log.Logger{}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello from Mondoo Engineer!"))
+		_, err := w.Write([]byte("Hello from Mondoo Engineer!"))
+		if err != nil {
+			log.Printf("Error writing response: %v", err)
+		}
 	})
 
 	srv := &http.Server{Addr: ":" + "8080"}
